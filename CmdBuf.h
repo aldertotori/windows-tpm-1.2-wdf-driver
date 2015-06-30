@@ -118,54 +118,12 @@ typedef UINT32  TSS_COUNTER_ID;
 
 #ifndef BIG_ENDIAN_UINT
 
-#if  defined(LITTLE_ENDIAN) || defined(__LITTLE_ENDIAN__) || defined(__ORDER_LITTLE_ENDIAN__)
-
 #define BIG_ENDIAN_UINT(value)	((value << 24) | \
 								((value & 0x0000FF00) << 8)	 | \
 								((value & 0x00FF0000) >> 8)	 | \
 								 (value >> 24) )
 
 #define BIG_ENDIAN_WORD(x) 		( ( (x & 0xFF00) >> 8 ) | ( (x & 0xFF) << 8 ))
-
-#elif defined(BIG_ENDIAN) || defined(__BIG_ENDIAN__) || defined(__ORDER_BIG_ENDIAN__)
-
-#define BIG_ENDIAN_UINT(value)
-
-#define BIG_ENDIAN_WORD(x)
-
-#elif !defined(BIG_ENDIAN_FUN)
-#define BIG_ENDIAN_FUN
-
-_inline UINT32 BIG_ENDIAN_UINT(UINT32 x)
-{
-	UINT32 test = 0xaabbccdd;
-	if((*(PUCHAR)test) == 0xdd)
-	{
-		return	((x << 24) | \
-			((x & 0x0000FF00) << 8)	 | \
-			((x & 0x00FF0000) >> 8)	 | \
-			(x  >> 24) );
-	}
-	else
-	{
-		return x;
-	}
-}
-
-_inline USHORT BIG_ENDIAN_WORD(USHORT x)
-{
-	UINT32 test = 0xaabbccdd;
-	if((*(PUCHAR)test) == 0xdd)
-	{
-		return	(( (x & 0xFF00) >> 8 ) | ( (x & 0xFF) << 8 ));
-	}
-	else
-	{
-		return x;
-	}
-}
-
-#endif
 
 #endif // BIG_ENDIAN_UINT
 
