@@ -1,0 +1,6 @@
+LIBRARY "cng.sys"
+EXPORTS
+	EntropyRegisterSource
+	EntropyUnregisterSource
+	EntropyProvideData
+
